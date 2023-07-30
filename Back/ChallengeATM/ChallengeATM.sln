@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengeATM", "ChallengeATM\ChallengeATM.csproj", "{04EE8913-4A27-4DB7-9F43-2B875600BF49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Entities", "ATM.Entities\ATM.Entities.csproj", "{2731C509-1139-4FBE-A618-A98569E8348B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.DataLayer", "ATM.DataLayer\ATM.DataLayer.csproj", "{47BC0D54-DD97-4223-9BAF-AF4CC0411CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.LogicLayer", "ATM.LogicLayer\ATM.LogicLayer.csproj", "{592B7883-14DD-4C48-AE20-3553977EC742}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2731C509-1139-4FBE-A618-A98569E8348B} = {2731C509-1139-4FBE-A618-A98569E8348B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM.Interfaces", "ATM.Interfaces\ATM.Interfaces.csproj", "{36B41304-E0E9-4604-B4E9-CD7272FA5F7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04EE8913-4A27-4DB7-9F43-2B875600BF49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EE8913-4A27-4DB7-9F43-2B875600BF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EE8913-4A27-4DB7-9F43-2B875600BF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EE8913-4A27-4DB7-9F43-2B875600BF49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2731C509-1139-4FBE-A618-A98569E8348B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2731C509-1139-4FBE-A618-A98569E8348B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2731C509-1139-4FBE-A618-A98569E8348B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2731C509-1139-4FBE-A618-A98569E8348B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47BC0D54-DD97-4223-9BAF-AF4CC0411CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47BC0D54-DD97-4223-9BAF-AF4CC0411CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47BC0D54-DD97-4223-9BAF-AF4CC0411CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47BC0D54-DD97-4223-9BAF-AF4CC0411CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{592B7883-14DD-4C48-AE20-3553977EC742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592B7883-14DD-4C48-AE20-3553977EC742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592B7883-14DD-4C48-AE20-3553977EC742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592B7883-14DD-4C48-AE20-3553977EC742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B41304-E0E9-4604-B4E9-CD7272FA5F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B41304-E0E9-4604-B4E9-CD7272FA5F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B41304-E0E9-4604-B4E9-CD7272FA5F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B41304-E0E9-4604-B4E9-CD7272FA5F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7832A804-3626-48DF-A47C-1A687846CD45}
+	EndGlobalSection
+EndGlobal

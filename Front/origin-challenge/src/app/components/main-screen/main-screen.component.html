@@ -1,0 +1,15 @@
+<div>
+    <div class="row" *ngIf="showMessage">
+        <div class="alert text-center" role="alert" [ngClass]="error ? 'alert-danger': 'alert-success'">
+            {{message}}
+        </div>
+    </div>
+    <div class="flex-center">
+        <div>
+            <button class="btn btn-secondary">Balance</button>
+        </div>
+        <div>
+            <button class="btn btn-primary">Retiro</button>
+        </div>
+    </div>
+</div>
