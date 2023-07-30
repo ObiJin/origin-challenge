@@ -8,6 +8,9 @@ import { CardMaskPipe } from './pipes/card-mask.pipe';
 import { MainScreenComponent } from './components/main-screen/main-screen.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { BalanceComponent } from './components/balance/balance.component';
+import { WithdrawalComponent } from './components/withdrawal/withdrawal.component';
+import { OperationComponent } from './components/operation/operation.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
     MainScreenComponent,
     KeyboardComponent,
     CardMaskPipe,
-    NavbarComponent
+    NavbarComponent,
+    BalanceComponent,
+    WithdrawalComponent,
+    OperationComponent
   ],
   imports: [
     BrowserModule,

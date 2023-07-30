@@ -1,16 +1,16 @@
-using ATM.DataLayer.DbModel;
-using ATM.Interfaces;
 using ATM.DataLayer;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using ATM.DataLayer.DbModel;
 using ATM.Entities.Config;
+using ATM.Interfaces;
 using ATM.LogicLayer;
 using ATM.LogicLayer.Interfaces;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using ATM.LogicLayer.Mappers;
+using ChallengeATM.ModelMappers;
+using ChallengeATM.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ChallengeATM
 {
@@ -32,8 +32,12 @@ namespace ChallengeATM
             services.AddDbContext<challengeATMContext>(options => options.UseSqlServer(configuration.GetConnectionString("ATMConnString")), ServiceLifetime.Transient);
 
             services.AddScoped<IRepository<ATM.DataLayer.DbModel.Card>, CardsRepository>()
+                .AddScoped<IRepository<ATM.DataLayer.DbModel.Operation>, OperationsRepository>()
                 .AddScoped<IMap<ATM.Entities.Card, ATM.DataLayer.DbModel.Card>, CardMapper>()
-                .AddScoped<ICardsLogic, CardsLogic>();
+                .AddScoped<IMap<CardModel, ATM.Entities.Card>, CardModelMapper>()
+                .AddScoped<IMap<ATM.Entities.Operation, ATM.DataLayer.DbModel.Operation>, OperationsMapper>()
+                .AddScoped<ICardsLogic, CardsLogic>()
+                .AddScoped<IOperationLogic, OperationsLogic>();
 
             services.AddCors(options =>
             {
@@ -45,6 +49,10 @@ namespace ChallengeATM
                   .AllowCredentials());
             });
 
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var issuer = appSettings.Issuer;
+            var audience = appSettings.Audience;
+
             services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -52,15 +60,14 @@ namespace ChallengeATM
             })
             .AddJwtBearer(options =>
             {
-                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = false,
-                    ValidIssuer = configuration.GetValue<string>("JWT:Issuer"),
+                    ValidIssuer = issuer,
                     ValidateAudience = false,
-                    ValidAudience = configuration.GetValue<string>("JWT:Audience"),
+                    ValidAudience = audience,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:SigningKey")))
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
 

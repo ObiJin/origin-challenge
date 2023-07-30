@@ -17,17 +17,27 @@ export class BaseService {
   private doNothing = () => { };
 
   async get(options: any) {
-    this.http.get<any>( this.server + options.url, { headers: this.headersService.getCorsHeader() }).subscribe({
+
+    const authHeader: any = options.token 
+                    ? this.headersService.getAuthorizationHeader(options.token) 
+                    : this.headersService.getCorsHeader();
+
+    this.http.get<any>( this.server + options.url, { headers: authHeader }).subscribe({
       next: (data) => this.handleResponse(options, data),
       error: (e) => this.handleError(options, e)
     })
   }
 
   async post(options: any) {
+
+    const authHeader: any = options.token 
+                    ? this.headersService.getAuthorizationHeader(options.token) 
+                    : this.headersService.getCorsHeader();
+
     this.http.post<any>(
       this.server + options.url,
       options.body,
-      options.token ? this.headersService.getAuthorizationHeader(options.token) : this.headersService.getCorsHeader()).subscribe({
+      { headers: authHeader } ).subscribe({
         next: data => this.handleResponse(options, data),
         error: e => this.handleError(options, e)
       })

@@ -1,11 +1,5 @@
 ﻿using ATM.Entities;
 using ATM.Interfaces;
-using ATM.LogicLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATM.LogicLayer.Mappers
 {
@@ -17,10 +11,10 @@ namespace ATM.LogicLayer.Mappers
 
             return new Card
             {
+                Id = source.Id,
                 Balance = source.Balance,
                 CardNumber = source.Number,
-                ExpireDate = source.ExpireDate,
-                PINNumber = source.Pin
+                ExpireDate = source.ExpireDate.ToString("dd/MM/yyyy HH:mm:ss")
             };
         }
 
@@ -30,9 +24,9 @@ namespace ATM.LogicLayer.Mappers
 
             return new DataLayer.DbModel.Card
             {
-                Pin = source.PINNumber,
+                Id = source.Id,
                 Balance = source.Balance,
-                ExpireDate = source.ExpireDate,
+                ExpireDate = DateTime.Parse(source.ExpireDate),
                 Number = source.CardNumber
             };
         }

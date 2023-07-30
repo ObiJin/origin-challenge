@@ -1,8 +1,7 @@
-﻿using ATM.Interfaces;
-using ATM.Entities;
-using ATM.LogicLayer.Interfaces;
-using System.Linq.Expressions;
+﻿using ATM.Entities;
 using ATM.Entities.Config;
+using ATM.Interfaces;
+using ATM.LogicLayer.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -24,9 +23,15 @@ namespace ATM.LogicLayer
             _appSettings = appSettings.Value;
         }
 
+        public List<Card> AllCards()
+        {
+            var cards = _cardRepository.GetAll().Select(c => _cardsMapper.Map(c)).ToList();
+            return cards;
+        }
+
         public Login? Authenticate(string username, string password)
         {
-            var dbCard = _cardRepository.Find(c => c.Pin == password && c.Number == username).FirstOrDefault();
+            var dbCard = _cardRepository.Find(c => c.Pin == password && c.Number == username && !c.IsBlocked).FirstOrDefault();
 
             Card? card = _cardsMapper.Map(dbCard);
 
@@ -42,7 +47,8 @@ namespace ATM.LogicLayer
                         new Claim("cardNumber", card.CardNumber)
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(expiryDuration),
-                    
+                    Issuer = _appSettings.Issuer,
+                    Audience = _appSettings.Audience,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 
@@ -76,6 +82,23 @@ namespace ATM.LogicLayer
             Card? card = dbCard is not null ? _cardsMapper.Map(dbCard) : null;
 
             return card;
+        }
+
+        public Card? Find(int id)
+        {
+            var dbCard = _cardRepository.Get(id);
+
+            return _cardsMapper.Map(dbCard);
+        }
+
+        public Card? Withdraw(string number, decimal amount)
+        {
+            var dbCard = _cardRepository.Find(c => c.Number == number && !c.IsBlocked).First();
+
+            dbCard.Balance -= amount;
+            _cardRepository.Update(dbCard);
+
+            return _cardsMapper.Map(dbCard);
         }
     }
 }

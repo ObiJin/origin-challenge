@@ -10,13 +10,21 @@ import { Router } from '@angular/router';
 })
 export class MainScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   error: boolean = true;
   message: string = "Test message";
   showMessage: boolean = false;
 
   ngOnInit(): void {
+  }
+
+  balance(event: any){
+    this.router.navigate(['/balance'])
+  }
+
+  withdrawal(event: any){
+    this.router.navigate(['/withdrawal'])
   }
 
 }

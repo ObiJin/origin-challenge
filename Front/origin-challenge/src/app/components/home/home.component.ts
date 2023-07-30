@@ -100,7 +100,6 @@ export class HomeComponent implements OnInit {
         this.retries++;
         if (this.retries > 3) {
           this.resetForm();
-          console.log('Bloquea2');
           this.cardService.block(body,
             (data: any) => { this.setMessage(`La tarjeta ${data.cardNumber} ha sido bloqueada por exceder el número de intentos.`, true) },
             (error: any) => { this.setMessage(error, true) }
@@ -127,6 +126,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.userLogedObserver.unsubscribe(); // make sure to unsubscribe
+    this.userLogedObserver.unsubscribe();
   }
 }
