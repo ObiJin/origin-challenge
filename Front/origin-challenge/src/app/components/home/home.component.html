@@ -1,0 +1,19 @@
+<div>
+    <div class="row" *ngIf="showMessage">
+        <div class="alert text-center" role="alert" [ngClass]="error ? 'alert-danger': 'alert-success'">
+            {{message}}
+        </div>
+    </div>
+    <form class="flex-center">
+        <div>
+            <input type="text" class="form-control card-number" [hidden]="showPassword"
+                placeholder="Numero de tarjeta (16 dígitos)" [value]="inputValue | cardMask" disabled>
+        </div>
+        <div>
+            <input type="text" class="form-control card-number" [hidden]="!showPassword" placeholder="Ingrese el PIN"
+                [value]="inputValue" disabled>
+        </div>
+    </form>
+    <app-keyboard (keyboardEvent)="onKeyboardEvent($event)" (cleanEvent)="onClean($event)"
+        (acceptEvent)="onAccept($event)"></app-keyboard>
+</div>

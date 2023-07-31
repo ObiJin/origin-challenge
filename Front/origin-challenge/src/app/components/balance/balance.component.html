@@ -1,0 +1,22 @@
+<div>
+    <div class="row" *ngIf="showMessage">
+        <div class="alert text-center" role="alert" [ngClass]="error ? 'alert-danger': 'alert-success'">
+            {{message}}
+        </div>
+    </div>
+    <form>
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Número Tarjeta:</label>
+            <input type="text" class="form-control" [value]="card.number" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Balance:</label>
+            <input type="text" class="form-control" [value]="card.balance" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Fecha de Vencimiento:</label>
+            <input type="text" class="form-control" [value]="card.expireDate" disabled>
+        </div>
+        <button class="btn btn-primary" (click)="back($event)">Atrás</button>
+    </form>
+</div>
