@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { WithdrawalComponent } from './components/withdrawal/withdrawal.component';
 import { OperationComponent } from './components/operation/operation.component';
+import { AppConfigService } from './services/app-config.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,16 @@ import { OperationComponent } from './components/operation/operation.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    multi: true,
+    deps: [AppConfigService],
+    useFactory: (appConfigService: AppConfigService) => {
+      return () => {
+        return appConfigService.loadAppConfig();
+      };
+    }
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

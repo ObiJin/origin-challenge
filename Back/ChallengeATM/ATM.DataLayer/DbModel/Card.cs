@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ATM.DataLayer.DbModel
+﻿namespace ATM.DataLayer.DbModel
 {
     public partial class Card
     {

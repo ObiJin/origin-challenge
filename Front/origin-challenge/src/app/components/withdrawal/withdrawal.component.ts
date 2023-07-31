@@ -42,14 +42,15 @@ export class WithdrawalComponent implements OnInit {
         this.router.navigate([`/operation/${data.id}`]);
       },
       (error: any) => { 
+        debugger;
         console.log('withdrawError')
         this.setMessage(error.error || error.statusText || error, true) }
       )
   }
 
-  setMessage(message: string, error: boolean) {
-    this.showMessage = message.length > 0;
+  setMessage(message: any, error: boolean) {
+    this.showMessage = message.length ?? message.detail.length > 0;
     this.error = error;
-    this.message = message;
+    this.message = message.length > 0 ? message : message.detail;
   }
 }
